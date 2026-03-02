@@ -99,18 +99,18 @@
         /* ─── HERO ─── */
         .hero {
             min-height: 100vh; display: flex; align-items: center;
-            background: linear-gradient(135deg, var(--blue-50) 0%, var(--white) 50%, var(--blue-50) 100%);
+            background: linear-gradient(160deg, #eef4ff 0%, #f8faff 25%, var(--white) 50%, #f0f7ff 75%, #e8f1ff 100%);
             position: relative; overflow: hidden; padding-top: 72px;
         }
         .hero::before {
-            content: ''; position: absolute; top: -200px; right: -200px;
-            width: 600px; height: 600px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(37,99,235,0.08) 0%, transparent 70%);
+            content: ''; position: absolute; top: -150px; right: -100px;
+            width: 700px; height: 700px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(37,99,235,0.07) 0%, rgba(37,99,235,0.03) 40%, transparent 70%);
         }
         .hero::after {
-            content: ''; position: absolute; bottom: -150px; left: -150px;
-            width: 500px; height: 500px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(37,99,235,0.06) 0%, transparent 70%);
+            content: ''; position: absolute; bottom: -200px; left: -100px;
+            width: 600px; height: 600px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(37,99,235,0.05) 0%, rgba(37,99,235,0.02) 40%, transparent 70%);
         }
         .hero-inner {
             max-width: 1400px; margin: 0 auto; padding: 4rem 2rem;
@@ -575,31 +575,7 @@
                 </div>
             </div>
             <div class="hero-visual">
-                <div class="hero-card">
-                    <div class="hero-card-header">
-                        <div class="hero-card-icon"><span>🏥</span></div>
-                        <div>
-                            <h3>Sua Cotação</h3>
-                            <p>Resultado personalizado</p>
-                        </div>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-label">Operadora</span>
-                        <span class="stat-value">As melhores</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-label">Cobertura</span>
-                        <span class="stat-value">Nacional</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-label">Carência</span>
-                        <span class="stat-value highlight">Reduzida</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-label">Economia</span>
-                        <span class="stat-value highlight">Até 40%</span>
-                    </div>
-                </div>
+                <img src="hero.jpg" alt="Família feliz protegida pela Doutor Seguros" style="width: 100%; max-width: 520px; border-radius: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
             </div>
         </div>
     </section>
