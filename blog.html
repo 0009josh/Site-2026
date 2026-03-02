@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog — Doutor Seguros</title>
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blue-900: #0c2d6b;
+            --blue-800: #0e3a8a;
+            --blue-700: #1d4ed8;
+            --blue-600: #2563eb;
+            --blue-500: #3b82f6;
+            --blue-400: #60a5fa;
+            --blue-100: #dbeafe;
+            --blue-50: #eff6ff;
+            --white: #ffffff;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            color: var(--gray-800);
+            background: var(--gray-50);
+        }
+
+        /* NAV */
+        .nav {
+            position: sticky; top: 0; z-index: 1000;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--gray-200);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+        }
+        .nav-inner {
+            max-width: 1400px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 2rem; height: 72px;
+        }
+        .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .nav-logo img { height: 46px; border-radius: 10px; }
+        .nav-logo span { font-weight: 700; font-size: 1.25rem; color: var(--blue-900); }
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a {
+            text-decoration: none; color: var(--gray-600); font-weight: 500;
+            font-size: 0.95rem; transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--blue-700); }
+        .nav-cta {
+            background: var(--blue-600); color: var(--white) !important;
+            padding: 10px 24px; border-radius: 50px; font-weight: 600;
+            transition: background 0.3s;
+        }
+        .nav-cta:hover { background: var(--blue-700); }
+        .hamburger {
+            display: none; background: none; border: none; cursor: pointer;
+            width: 32px; height: 24px; position: relative;
+        }
+        .hamburger span {
+            display: block; width: 100%; height: 2.5px; background: var(--gray-800);
+            border-radius: 2px; transition: 0.3s; position: absolute; left: 0;
+        }
+        .hamburger span:nth-child(1) { top: 0; }
+        .hamburger span:nth-child(2) { top: 10px; }
+        .hamburger span:nth-child(3) { top: 20px; }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg); top: 10px; }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg); top: 10px; }
+
+        /* HERO BLOG */
+        .blog-hero {
+            background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-700) 100%);
+            padding: 5rem 2rem 4rem; text-align: center; color: var(--white);
+        }
+        .blog-hero h1 {
+            font-size: 2.8rem; font-weight: 800; margin-bottom: 0.75rem;
+            letter-spacing: -0.03em;
+        }
+        .blog-hero p {
+            font-size: 1.15rem; opacity: 0.8; max-width: 550px; margin: 0 auto;
+        }
+
+        /* ARTICLES */
+        .blog-grid {
+            max-width: 1400px; margin: 0 auto;
+            padding: 3rem 2rem 5rem;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+        }
+        .article-card {
+            background: var(--white); border-radius: 18px; overflow: hidden;
+            border: 1px solid var(--gray-200); transition: all 0.4s;
+        }
+        .article-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.08);
+        }
+        .article-thumb {
+            height: 200px; display: flex; align-items: center; justify-content: center;
+            font-size: 4rem; position: relative; overflow: hidden;
+        }
+        .article-body { padding: 1.75rem; }
+        .article-tag {
+            display: inline-block; font-size: 0.75rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.08em;
+            padding: 4px 12px; border-radius: 50px; margin-bottom: 1rem;
+        }
+        .tag-guide { background: var(--blue-100); color: var(--blue-700); }
+        .tag-tips { background: #fef3c7; color: #92400e; }
+        .tag-news { background: #dcfce7; color: #166534; }
+        .tag-health { background: #fce7f3; color: #9d174d; }
+        .article-body h2 {
+            font-size: 1.2rem; font-weight: 700; color: var(--gray-900);
+            margin-bottom: 0.75rem; line-height: 1.35;
+        }
+        .article-body p {
+            font-size: 0.92rem; color: var(--gray-500); line-height: 1.65;
+            margin-bottom: 1.25rem;
+        }
+        .read-more {
+            font-size: 0.9rem; font-weight: 600; color: var(--blue-600);
+            text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+            transition: gap 0.3s;
+        }
+        .read-more:hover { gap: 10px; }
+        .article-meta {
+            display: flex; align-items: center; gap: 8px;
+            padding-top: 1.25rem; border-top: 1px solid var(--gray-100); margin-top: 0.5rem;
+        }
+        .article-meta span { font-size: 0.8rem; color: var(--gray-400); }
+
+        /* ARTICLE DETAIL */
+        .article-detail {
+            display: none; max-width: 800px; margin: 0 auto; padding: 3rem 2rem 5rem;
+        }
+        .article-detail.active { display: block; }
+        .article-detail .back-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-size: 0.95rem; font-weight: 600; color: var(--blue-600);
+            text-decoration: none; margin-bottom: 2rem; cursor: pointer;
+            transition: gap 0.3s; background: none; border: none; font-family: inherit;
+        }
+        .article-detail .back-btn:hover { gap: 12px; }
+        .article-detail h1 {
+            font-size: 2.2rem; font-weight: 800; color: var(--gray-900);
+            margin-bottom: 1rem; line-height: 1.2;
+        }
+        .article-detail .meta-bar {
+            display: flex; gap: 1.5rem; margin-bottom: 2.5rem;
+            font-size: 0.85rem; color: var(--gray-400);
+        }
+        .article-detail .content h2 {
+            font-size: 1.4rem; font-weight: 700; color: var(--gray-900);
+            margin: 2rem 0 1rem;
+        }
+        .article-detail .content p {
+            font-size: 1.05rem; color: var(--gray-600); line-height: 1.85;
+            margin-bottom: 1rem;
+        }
+        .article-detail .content ul {
+            margin: 1rem 0 1.5rem 1.5rem; color: var(--gray-600);
+            font-size: 1.05rem; line-height: 1.85;
+        }
+        .article-detail .content li { margin-bottom: 0.5rem; }
+        .article-detail .cta-box {
+            background: var(--blue-50); border: 2px solid var(--blue-200, var(--blue-100));
+            border-radius: 16px; padding: 2rem; text-align: center; margin-top: 3rem;
+        }
+        .article-detail .cta-box h3 {
+            font-size: 1.3rem; font-weight: 700; color: var(--blue-900); margin-bottom: 0.5rem;
+        }
+        .article-detail .cta-box p {
+            font-size: 0.95rem; color: var(--gray-600); margin-bottom: 1.25rem;
+        }
+        .article-detail .cta-box a {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--blue-600); color: var(--white); padding: 12px 28px;
+            border-radius: 50px; font-weight: 600; text-decoration: none;
+            transition: background 0.3s;
+        }
+        .article-detail .cta-box a:hover { background: var(--blue-700); }
+
+        /* FOOTER */
+        .footer {
+            background: var(--gray-900); color: var(--gray-300); padding: 3rem 2rem 1.5rem;
+        }
+        .footer-inner {
+            max-width: 1400px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 1rem;
+        }
+        .footer-logo { display: flex; align-items: center; gap: 10px; }
+        .footer-logo img { height: 36px; border-radius: 8px; }
+        .footer-logo span { font-weight: 600; color: var(--white); }
+        .footer-copy { font-size: 0.85rem; }
+
+        @media (max-width: 968px) {
+            .blog-grid { grid-template-columns: 1fr 1fr; }
+            .nav-links { display: none; }
+            .hamburger { display: block; }
+            .nav-links.open {
+                display: flex; flex-direction: column;
+                position: absolute; top: 72px; left: 0; right: 0;
+                background: var(--white); padding: 2rem;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.1); gap: 1.5rem;
+            }
+        }
+        @media (max-width: 600px) {
+            .blog-grid { grid-template-columns: 1fr; }
+            .blog-hero h1 { font-size: 2rem; }
+            .article-detail h1 { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">
+                <img src="logo.jpg" alt="Doutor Seguros">
+                <span>Doutor Seguros</span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html">Início</a>
+                <a href="index.html#sobre">Sobre</a>
+                <a href="index.html#servicos">Serviços</a>
+                <a href="blog.html" style="color: var(--blue-700); font-weight: 700;">Blog</a>
+                <a href="index.html#contato">Contato</a>
+                <a href="https://wa.me/55XXXXXXXXXXX" class="nav-cta" target="_blank">Fale Conosco</a>
+            </div>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="blog-hero" id="blogHero">
+        <h1>Blog Doutor Seguros</h1>
+        <p>Dicas, guias e informações para você fazer a melhor escolha em planos de saúde.</p>
+    </section>
+
+    <!-- GRID DE ARTIGOS -->
+    <div class="blog-grid" id="blogGrid">
+
+        <!-- Artigo 1 -->
+        <div class="article-card" onclick="openArticle('art1')">
+            <div class="article-thumb" style="background: linear-gradient(135deg, #dbeafe, #eff6ff);">🏥</div>
+            <div class="article-body">
+                <span class="article-tag tag-guide">Guia</span>
+                <h2>Como escolher o plano de saúde ideal para sua família</h2>
+                <p>Entenda os principais critérios para tomar a melhor decisão e proteger quem você ama.</p>
+                <a class="read-more">Ler artigo →</a>
+                <div class="article-meta">
+                    <span>📅 Fev 2025</span>
+                    <span>·</span>
+                    <span>5 min de leitura</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Artigo 2 -->
+        <div class="article-card" onclick="openArticle('art2')">
+            <div class="article-thumb" style="background: linear-gradient(135deg, #fef3c7, #fffbeb);">🔄</div>
+            <div class="article-body">
+                <span class="article-tag tag-tips">Dicas</span>
+                <h2>Portabilidade de plano de saúde: como trocar sem perder carência</h2>
+                <p>Saiba como funciona a portabilidade e os passos para migrar de operadora com tranquilidade.</p>
+                <a class="read-more">Ler artigo →</a>
+                <div class="article-meta">
+                    <span>📅 Jan 2025</span>
+                    <span>·</span>
+                    <span>4 min de leitura</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Artigo 3 -->
+        <div class="article-card" onclick="openArticle('art3')">
+            <div class="article-thumb" style="background: linear-gradient(135deg, #dcfce7, #f0fdf4);">🏢</div>
+            <div class="article-body">
+                <span class="article-tag tag-news">Empresas</span>
+                <h2>Plano de saúde empresarial: vantagens para sua empresa e colaboradores</h2>
+                <p>Descubra por que oferecer plano de saúde é um dos melhores investimentos para o seu negócio.</p>
+                <a class="read-more">Ler artigo →</a>
+                <div class="article-meta">
+                    <span>📅 Jan 2025</span>
+                    <span>·</span>
+                    <span>6 min de leitura</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Artigo 4 -->
+        <div class="article-card" onclick="openArticle('art4')">
+            <div class="article-thumb" style="background: linear-gradient(135deg, #fce7f3, #fdf2f8);">🦷</div>
+            <div class="article-body">
+                <span class="article-tag tag-health">Saúde</span>
+                <h2>Plano odontológico vale a pena? Tudo o que você precisa saber</h2>
+                <p>Entenda a cobertura, os custos e como escolher o melhor plano dental para você e sua família.</p>
+                <a class="read-more">Ler artigo →</a>
+                <div class="article-meta">
+                    <span>📅 Dez 2024</span>
+                    <span>·</span>
+                    <span>4 min de leitura</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Artigo 5 -->
+        <div class="article-card" onclick="openArticle('art5')">
+            <div class="article-thumb" style="background: linear-gradient(135deg, #dbeafe, #eff6ff);">💰</div>
+            <div class="article-body">
+                <span class="article-tag tag-guide">Guia</span>
+                <h2>Coparticipação no plano de saúde: o que é e quando compensa</h2>
+                <p>Entenda como funciona o modelo de coparticipação e se ele é a melhor opção para o seu bolso.</p>
+                <a class="read-more">Ler artigo →</a>
+                <div class="article-meta">
+                    <span>📅 Dez 2024</span>
+                    <span>·</span>
+                    <span>5 min de leitura</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Artigo 6 -->
+        <div class="article-card" onclick="openArticle('art6')">
+            <div class="article-thumb" style="background: linear-gradient(135deg, #fef3c7, #fffbeb);">📋</div>
+            <div class="article-body">
+                <span class="article-tag tag-tips">Dicas</span>
+                <h2>Carência do plano de saúde: prazos, regras e como reduzir</h2>
+                <p>Conheça os prazos de carência previstos pela ANS e descubra como reduzi-los legalmente.</p>
+                <a class="read-more">Ler artigo →</a>
+                <div class="article-meta">
+                    <span>📅 Nov 2024</span>
+                    <span>·</span>
+                    <span>5 min de leitura</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ARTIGOS DETALHADOS -->
+
+    <!-- Artigo 1 Detail -->
+    <div class="article-detail" id="art1">
+        <button class="back-btn" onclick="closeArticle()">← Voltar ao blog</button>
+        <h1>Como escolher o plano de saúde ideal para sua família</h1>
+        <div class="meta-bar"><span>📅 Fevereiro 2025</span><span>⏱ 5 min de leitura</span></div>
+        <div class="content">
+            <p>Escolher um plano de saúde para a família é uma das decisões mais importantes que você pode tomar. Com tantas opções no mercado, é natural sentir-se perdido. Neste guia, vamos te ajudar a entender os principais critérios.</p>
+            <h2>1. Avalie as necessidades da sua família</h2>
+            <p>Antes de pesquisar planos, faça uma lista das necessidades de saúde de cada membro da família. Considere idade, condições pré-existentes, frequência de consultas e se há necessidade de especialistas.</p>
+            <h2>2. Entenda os tipos de plano</h2>
+            <ul>
+                <li><strong>Individual/Familiar:</strong> contratado por CPF, ideal para famílias que não têm vínculo empregatício com empresa que oferece plano.</li>
+                <li><strong>Coletivo por adesão:</strong> disponível para profissionais vinculados a entidades de classe, costuma ter preços mais atrativos.</li>
+                <li><strong>Empresarial:</strong> para empresas a partir de 2 vidas, com condições especiais de preço.</li>
+            </ul>
+            <h2>3. Verifique a rede credenciada</h2>
+            <p>De nada adianta um plano barato se os hospitais e médicos que você precisa não estão na rede. Verifique se os profissionais e instituições de sua preferência são credenciados.</p>
+            <h2>4. Compare custos reais</h2>
+            <p>Não olhe apenas a mensalidade. Considere coparticipação, reajustes anuais, faixa etária e o que está incluído na cobertura. Um plano aparentemente barato pode sair caro se tiver muitas coparticipações.</p>
+            <h2>5. Conte com uma consultoria especializada</h2>
+            <p>Uma corretora de planos de saúde como a Doutor Seguros pode comparar dezenas de opções gratuitamente e encontrar o melhor custo-benefício para o seu perfil.</p>
+            <div class="cta-box">
+                <h3>Quer encontrar o plano ideal?</h3>
+                <p>Fale com nossos consultores e receba uma cotação personalizada e gratuita.</p>
+                <a href="https://wa.me/55XXXXXXXXXXX" target="_blank">💬 Falar pelo WhatsApp</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Artigo 2 Detail -->
+    <div class="article-detail" id="art2">
+        <button class="back-btn" onclick="closeArticle()">← Voltar ao blog</button>
+        <h1>Portabilidade de plano de saúde: como trocar sem perder carência</h1>
+        <div class="meta-bar"><span>📅 Janeiro 2025</span><span>⏱ 4 min de leitura</span></div>
+        <div class="content">
+            <p>Muitas pessoas não sabem, mas é possível trocar de plano de saúde sem precisar cumprir carência novamente. Esse direito é garantido pela ANS e se chama portabilidade.</p>
+            <h2>O que é a portabilidade?</h2>
+            <p>A portabilidade permite que você mude de operadora de plano de saúde aproveitando os períodos de carência já cumpridos no plano anterior. Isso significa que você não precisa esperar meses para usar o novo plano.</p>
+            <h2>Quais são os requisitos?</h2>
+            <ul>
+                <li>Estar há pelo menos 2 anos no plano atual (ou 3 anos para quem tem cobertura parcial temporária).</li>
+                <li>O plano de destino deve ser de faixa de preço compatível.</li>
+                <li>Estar em dia com as mensalidades.</li>
+                <li>Solicitar a portabilidade durante o período de aniversário do contrato.</li>
+            </ul>
+            <h2>Como a Doutor Seguros pode ajudar?</h2>
+            <p>Cuidamos de todo o processo de portabilidade para você — desde a análise de compatibilidade até a efetivação da troca. Tudo sem burocracia e sem custo.</p>
+            <div class="cta-box">
+                <h3>Quer trocar de plano sem perder carência?</h3>
+                <p>Nossos consultores cuidam de todo o processo para você.</p>
+                <a href="https://wa.me/55XXXXXXXXXXX" target="_blank">💬 Falar pelo WhatsApp</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Artigo 3 Detail -->
+    <div class="article-detail" id="art3">
+        <button class="back-btn" onclick="closeArticle()">← Voltar ao blog</button>
+        <h1>Plano de saúde empresarial: vantagens para sua empresa e colaboradores</h1>
+        <div class="meta-bar"><span>📅 Janeiro 2025</span><span>⏱ 6 min de leitura</span></div>
+        <div class="content">
+            <p>Oferecer um plano de saúde empresarial é uma das formas mais eficazes de valorizar seus colaboradores, reduzir o turnover e aumentar a produtividade.</p>
+            <h2>Vantagens para a empresa</h2>
+            <ul>
+                <li><strong>Retenção de talentos:</strong> plano de saúde é o benefício mais valorizado pelos trabalhadores brasileiros.</li>
+                <li><strong>Redução do absenteísmo:</strong> colaboradores com acesso à saúde faltam menos ao trabalho.</li>
+                <li><strong>Benefícios fiscais:</strong> os custos com plano de saúde podem ser deduzidos do Imposto de Renda da empresa.</li>
+                <li><strong>Preços melhores:</strong> planos empresariais costumam ser significativamente mais baratos que os individuais.</li>
+            </ul>
+            <h2>A partir de quantas vidas posso contratar?</h2>
+            <p>A maioria das operadoras permite a contratação a partir de apenas 2 vidas. Isso inclui MEIs, microempresas e empresas de qualquer porte.</p>
+            <h2>Como a Doutor Seguros pode ajudar?</h2>
+            <p>Comparamos as melhores opções do mercado para encontrar o plano empresarial ideal para o porte e o perfil da sua empresa, com consultoria totalmente gratuita.</p>
+            <div class="cta-box">
+                <h3>Quer um plano para sua empresa?</h3>
+                <p>Receba cotações personalizadas das melhores operadoras.</p>
+                <a href="https://wa.me/55XXXXXXXXXXX" target="_blank">💬 Falar pelo WhatsApp</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Artigo 4 Detail -->
+    <div class="article-detail" id="art4">
+        <button class="back-btn" onclick="closeArticle()">← Voltar ao blog</button>
+        <h1>Plano odontológico vale a pena? Tudo o que você precisa saber</h1>
+        <div class="meta-bar"><span>📅 Dezembro 2024</span><span>⏱ 4 min de leitura</span></div>
+        <div class="content">
+            <p>A saúde bucal é parte fundamental do bem-estar, mas muitas vezes é deixada de lado. Um plano odontológico pode ser a solução acessível que você procura.</p>
+            <h2>O que o plano odontológico cobre?</h2>
+            <p>Segundo a ANS, todos os planos odontológicos devem cobrir no mínimo o Rol de Procedimentos, que inclui consultas, radiografias, restaurações, extrações, tratamento de canal, próteses e muito mais.</p>
+            <h2>Quanto custa?</h2>
+            <p>Planos odontológicos são muito acessíveis — a partir de R$ 20 a R$ 50 por mês, dependendo da operadora e cobertura. Para famílias, os valores são ainda mais atrativos.</p>
+            <h2>Vale a pena?</h2>
+            <p>Se considerarmos que uma única restauração particular pode custar entre R$ 150 e R$ 400, e um tratamento de canal entre R$ 500 e R$ 1.500, fica claro que o plano se paga rapidamente.</p>
+            <div class="cta-box">
+                <h3>Cuide do seu sorriso</h3>
+                <p>Conheça os melhores planos odontológicos disponíveis.</p>
+                <a href="https://wa.me/55XXXXXXXXXXX" target="_blank">💬 Falar pelo WhatsApp</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Artigo 5 Detail -->
+    <div class="article-detail" id="art5">
+        <button class="back-btn" onclick="closeArticle()">← Voltar ao blog</button>
+        <h1>Coparticipação no plano de saúde: o que é e quando compensa</h1>
+        <div class="meta-bar"><span>📅 Dezembro 2024</span><span>⏱ 5 min de leitura</span></div>
+        <div class="content">
+            <p>Planos com coparticipação têm mensalidades mais baixas, mas cobram uma taxa a cada utilização. Será que essa modalidade compensa para você?</p>
+            <h2>Como funciona?</h2>
+            <p>Na coparticipação, você paga uma mensalidade reduzida e, cada vez que utiliza o plano (consulta, exame, procedimento), paga um valor adicional — geralmente entre R$ 20 e R$ 80 por evento.</p>
+            <h2>Quando compensa?</h2>
+            <ul>
+                <li><strong>Compensa:</strong> se você usa pouco o plano (poucas consultas por ano) e quer economizar na mensalidade.</li>
+                <li><strong>Não compensa:</strong> se você tem uso frequente (acompanhamento mensal, tratamentos em andamento).</li>
+            </ul>
+            <h2>Como decidir?</h2>
+            <p>A dica é fazer uma simulação: multiplique sua frequência de uso pelo valor da coparticipação e compare com a diferença de mensalidade. Nossos consultores fazem esse cálculo gratuitamente para você.</p>
+            <div class="cta-box">
+                <h3>Não sabe qual modalidade escolher?</h3>
+                <p>Nossos consultores fazem a simulação perfeita para o seu caso.</p>
+                <a href="https://wa.me/55XXXXXXXXXXX" target="_blank">💬 Falar pelo WhatsApp</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Artigo 6 Detail -->
+    <div class="article-detail" id="art6">
+        <button class="back-btn" onclick="closeArticle()">← Voltar ao blog</button>
+        <h1>Carência do plano de saúde: prazos, regras e como reduzir</h1>
+        <div class="meta-bar"><span>📅 Novembro 2024</span><span>⏱ 5 min de leitura</span></div>
+        <div class="content">
+            <p>A carência é o período que você precisa esperar após contratar o plano antes de poder utilizar determinados serviços. Entenda como funciona e como reduzir esses prazos.</p>
+            <h2>Prazos máximos de carência (ANS)</h2>
+            <ul>
+                <li><strong>Urgência e emergência:</strong> 24 horas</li>
+                <li><strong>Consultas e exames simples:</strong> 30 dias</li>
+                <li><strong>Internações e cirurgias:</strong> 180 dias</li>
+                <li><strong>Parto:</strong> 300 dias</li>
+                <li><strong>Doenças pré-existentes:</strong> 24 meses</li>
+            </ul>
+            <h2>Como reduzir a carência?</h2>
+            <p>Existem algumas formas legais de reduzir ou eliminar a carência, como a portabilidade de carências, campanhas promocionais das operadoras e planos empresariais que frequentemente oferecem carência zero.</p>
+            <h2>Campanha de isenção de carência</h2>
+            <p>Periodicamente, as operadoras realizam campanhas com carência reduzida ou zero. A Doutor Seguros monitora essas campanhas e avisa você quando surgem as melhores oportunidades.</p>
+            <div class="cta-box">
+                <h3>Quer um plano com carência reduzida?</h3>
+                <p>Estamos sempre atentos às melhores campanhas do mercado.</p>
+                <a href="https://wa.me/55XXXXXXXXXXX" target="_blank">💬 Falar pelo WhatsApp</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-logo">
+                <img src="logo.jpg" alt="Doutor Seguros">
+                <span>Doutor Seguros</span>
+            </div>
+            <div class="footer-copy">&copy; 2025 Doutor Seguros. Todos os direitos reservados.</div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu
+        document.getElementById('hamburger').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.getElementById('navLinks').classList.toggle('open');
+        });
+
+        function openArticle(id) {
+            document.getElementById('blogGrid').style.display = 'none';
+            document.getElementById('blogHero').style.display = 'none';
+            document.querySelectorAll('.article-detail').forEach(el => el.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function closeArticle() {
+            document.querySelectorAll('.article-detail').forEach(el => el.classList.remove('active'));
+            document.getElementById('blogGrid').style.display = 'grid';
+            document.getElementById('blogHero').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>
