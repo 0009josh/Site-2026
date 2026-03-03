@@ -451,10 +451,13 @@
             to { opacity: 1; transform: translateX(0); }
         }
         .fade-in {
-            opacity: 0; transform: translateY(30px);
+        .fade-in {
+            opacity: 1; transform: translateY(0);
             transition: opacity 0.7s ease, transform 0.7s ease;
         }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fade-in.animate {
+            opacity: 0; transform: translateY(30px);
+        }
 
         /* ─── FAQ ─── */
         .faq-item {
@@ -805,7 +808,7 @@
                         <div class="contact-icon">📧</div>
                         <div>
                             <div class="label">E-mail</div>
-                            <div class="value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7b181409091e0f14091a3b1f140e0f1409081e1c0e0914085514091c">[email&#160;protected]</a></div>
+                            <div class="value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4a292538382f3e25382b0a2e253f3e2538392f2d3f3825396425382d">[email&#160;protected]</a></div>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -942,7 +945,7 @@
                     </div>
                     <div class="footer-contact-item">
                         <span class="icon">📧</span>
-                        <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dbb8b4a9a9beafb4a9ba9bbfb4aeafb4a9a8bebcaea9b4a8f5b4a9bc">[email&#160;protected]</a></span>
+                        <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0b686479796e7f64796a4b6f647e7f6479786e6c7e7964782564796c">[email&#160;protected]</a></span>
                     </div>
                     <div class="footer-contact-item">
                         <span class="icon">📍</span>
@@ -991,9 +994,12 @@
         });
 
         // Scroll fade-in
+        // Add animate class first, then observe
+        document.querySelectorAll('.fade-in').forEach(el => el.classList.add('animate'));
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
+                    entry.target.classList.remove('animate');
                     entry.target.classList.add('visible');
                 }
             });
